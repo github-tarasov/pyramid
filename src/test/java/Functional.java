@@ -15,7 +15,7 @@ public class Functional {
         try {
             URL url = new URL("http://localhost:8080/weight/1/0");
             URLConnection connection = url.openConnection();
-            assertEquals("Wrong response code", ((HttpURLConnection) connection).getResponseCode(), 200);
+            assertEquals("Wrong response code", 200, ((HttpURLConnection) connection).getResponseCode());
             InputStream stream = connection.getInputStream();
             Reader r = new InputStreamReader(stream);
             StringBuffer result = new StringBuffer();
@@ -24,7 +24,7 @@ public class Functional {
                 result.append(String.valueOf((char) c));
             }
             r.close();
-            assertEquals("Wrong result", result.toString(), "25");
+            assertEquals("Wrong result", "25", result.toString());
         } catch (Exception e) {
             fail("Fail to connect");
         }
@@ -35,7 +35,7 @@ public class Functional {
         try {
             URL url = new URL("http://localhost:8080/weight?level=1&index=1");
             URLConnection connection = url.openConnection();
-            assertEquals("Wrong response code", ((HttpURLConnection) connection).getResponseCode(), 200);
+            assertEquals("Wrong response code", 200, ((HttpURLConnection) connection).getResponseCode());
             InputStream stream = connection.getInputStream();
             Reader r = new InputStreamReader(stream);
             StringBuffer result = new StringBuffer();
@@ -44,7 +44,7 @@ public class Functional {
                 result.append(String.valueOf((char) c));
             }
             r.close();
-            assertEquals("Wrong result", result.toString(), "25");
+            assertEquals("Wrong result", "25", result.toString());
         } catch (Exception e) {
             fail("Fail to connect");
         }
@@ -55,11 +55,11 @@ public class Functional {
         try {
             URL url = new URL("http://localhost:8080/_eight?level=1&index=1");
             URLConnection connection = url.openConnection();
-            assertEquals("Wrong response code", ((HttpURLConnection) connection).getResponseCode(), 404);
+            assertEquals("Wrong response code", 404, ((HttpURLConnection) connection).getResponseCode());
 
             url = new URL("http://localhost:8080/_eight/1/1");
             connection = url.openConnection();
-            assertEquals("Wrong response code", ((HttpURLConnection) connection).getResponseCode(), 404);
+            assertEquals("Wrong response code", 404, ((HttpURLConnection) connection).getResponseCode());
         } catch (Exception e) {
             fail("Fail to connect");
         }
@@ -70,23 +70,23 @@ public class Functional {
         try {
             URL url = new URL("http://localhost:8080/weight/?_evel=1&index=1");
             URLConnection connection = url.openConnection();
-            assertEquals("Wrong response code", ((HttpURLConnection) connection).getResponseCode(), 404);
+            assertEquals("Wrong response code", 404, ((HttpURLConnection) connection).getResponseCode());
 
             url = new URL("http://localhost:8080/weight/?level=1");
             connection = url.openConnection();
-            assertEquals("Wrong response code", ((HttpURLConnection) connection).getResponseCode(), 404);
+            assertEquals("Wrong response code", 404, ((HttpURLConnection) connection).getResponseCode());
 
             url = new URL("http://localhost:8080/weight/1/");
             connection = url.openConnection();
-            assertEquals("Wrong response code", ((HttpURLConnection) connection).getResponseCode(), 404);
+            assertEquals("Wrong response code", 404, ((HttpURLConnection) connection).getResponseCode());
 
             url = new URL("http://localhost:8080/weight/1/x");
             connection = url.openConnection();
-            assertEquals("Wrong response code", ((HttpURLConnection) connection).getResponseCode(), 404);
+            assertEquals("Wrong response code", 404, ((HttpURLConnection) connection).getResponseCode());
 
             url = new URL("http://localhost:8080/weight/x/1");
             connection = url.openConnection();
-            assertEquals("Wrong response code", ((HttpURLConnection) connection).getResponseCode(), 404);
+            assertEquals("Wrong response code", 404, ((HttpURLConnection) connection).getResponseCode());
 
         } catch (Exception e) {
             fail("Fail to connect");

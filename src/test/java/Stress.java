@@ -26,7 +26,7 @@ public class Stress {
                 int c;
                 for (int i = 1; i <= 1000; i++) {
                     connection = url.openConnection();
-                    assertEquals("Wrong response code", ((HttpURLConnection) connection).getResponseCode(), 200);
+                    assertEquals("Wrong response code", 200, ((HttpURLConnection) connection).getResponseCode());
                     stream = connection.getInputStream();
                     r = new InputStreamReader(stream);
                     result.setLength(0);
@@ -34,7 +34,7 @@ public class Stress {
                         result.append((char)c);
                     }
                     r.close();
-                    assertEquals("Wrong result", result.toString(), "106,25");
+                    assertEquals("Wrong result", "106,25", result.toString());
                 }
             } catch (Exception e) {
                 fail("Fail to connect");
