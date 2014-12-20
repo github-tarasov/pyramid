@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <bean id="bossGroup" class="io.netty.channel.nio.NioEventLoopGroup" destroy-method="shutdownGracefully">
+        <constructor-arg type="int" index="0" value="1" />
+    </bean>
+
+    <bean id="workerGroup" class="io.netty.channel.nio.NioEventLoopGroup" destroy-method="shutdownGracefully" />
+
+    <bean id="loggingHandler" class="io.netty.handler.logging.LoggingHandler">
+        <constructor-arg index="0" value="io.netty.handler.logging.LogLevel.INFO" />
+    </bean>
+
+    <bean id="serverHandler" class="my.pyramid.ServerHandler">
+        <property name="strategy" ref="weightStrategy" />
+    </bean>
+
+    <bean id="weightStrategy" class="my.pyramid.WeightStrategy">
+        <property name="weight" ref="weight5PlusRecursion" />
+    </bean>
+
+    <bean id="weight5PlusRecursion" class="my.pyramid.Weight5PlusRecursion">
+        <property name="weightOfOneElement" value="50" />
+    </bean>
+
+    <!--
+    <bean id="weightSimple" class="my.pyramid.WeightSimple">
+        <property name="weightOfOneElement" value="50" />
+    </bean>
+    -->
+
+    <bean id="serverInitializer" class="my.pyramid.ServerInitializer">
+        <property name="serverHandler" ref="serverHandler" />
+    </bean>
+
+    <bean id="server" class="my.pyramid.Server">
+        <constructor-arg index="0" ref="bossGroup" />
+        <constructor-arg index="1" ref="workerGroup" />
+        <constructor-arg index="2" ref="loggingHandler" />
+        <constructor-arg index="3" ref="serverInitializer" />
+        <property name="port" value="8080" />
+    </bean>
+
+</beans>
